@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutY="50.0" prefHeight="314.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="53.0" prefWidth="600.0">
+               <children>
+                  <TextField prefHeight="53.0" prefWidth="109.0" promptText="Mã giao dịch:" text="Mã giao dịch:" />
+                  <TextField fx:id="transactionId" prefHeight="53.0" prefWidth="195.0" />
+                  <TextField prefHeight="53.0" prefWidth="123.0" text="Mã ngân hàng:" />
+                  <TextField fx:id="bankCode" prefHeight="53.0" prefWidth="161.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="57.0" prefWidth="600.0">
+               <children>
+                  <TextField prefHeight="65.0" prefWidth="110.0" text="Số tiền: " />
+                  <TextField fx:id="amount" prefHeight="57.0" prefWidth="153.0" />
+                  <TextField prefHeight="57.0" prefWidth="151.0" text="Thời gian giao dịch:" />
+                  <TextField fx:id="payDate" prefHeight="57.0" prefWidth="173.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <TextField prefHeight="60.0" prefWidth="91.0" text="Loại GD: " />
+                  <TextField fx:id="transactionType" prefHeight="60.0" prefWidth="138.0" />
+                  <TextField prefHeight="60.0" prefWidth="117.0" text="Trạng thái GD: " />
+                  <TextField fx:id="transactionStatus" prefHeight="60.0" prefWidth="240.0" />
+               </children>
+            </HBox>
+            <VBox prefHeight="96.0" prefWidth="600.0">
+               <children>
+                  <TextField text="Thông tin giao dịch: " />
+                  <TextField fx:id="orderInfo" prefHeight="64.0" prefWidth="600.0" />
+               </children>
+            </VBox>
+            <HBox prefHeight="50.0" prefWidth="600.0">
+               <children>
+                  <TextField prefHeight="50.0" prefWidth="105.0" text="Mã giảm giá: " />
+                  <TextField fx:id="promotionCode" prefHeight="50.0" prefWidth="168.0" />
+                  <TextField prefHeight="50.0" prefWidth="145.0" text="Số tiền được giảm: " />
+                  <TextField fx:id="promotionAmount" prefHeight="50.0" prefWidth="170.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <TextArea prefHeight="44.0" prefWidth="589.0" text="Chi tiết giao dịch của đơn hàng">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>

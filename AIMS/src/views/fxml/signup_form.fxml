@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="497.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="498.0" prefWidth="398.0">
+         <children>
+            <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" layoutX="395.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/images/Logo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="416.0" layoutY="201.0" prefHeight="96.0" prefWidth="166.0" text="SIGN UP" textAlignment="CENTER" textFill="#5091e6">
+               <font>
+                  <Font name="Segoe UI Semibold" size="42.0" />
+               </font>
+            </Label>
+            <TextField fx:id="username" layoutX="38.0" layoutY="295.0" prefHeight="26.0" prefWidth="265.0" />
+            <Label layoutX="38.0" layoutY="258.0" prefHeight="18.0" prefWidth="102.0" text="Username" textFill="#5091e6">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="38.0" layoutY="329.0" prefHeight="18.0" prefWidth="102.0" text="Password" textFill="#5091e6">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="name" layoutX="39.0" layoutY="74.0" prefHeight="26.0" prefWidth="265.0" />
+            <TextField fx:id="phoneNumber" layoutX="38.0" layoutY="146.0" prefHeight="26.0" prefWidth="266.0" />
+            <Label layoutX="39.0" layoutY="37.0" prefHeight="18.0" prefWidth="102.0" text="Full name" textFill="#5091e6">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="108.0" prefHeight="30.0" prefWidth="159.0" text="Phone number" textFill="#5091e6">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="405.0" prefHeight="30.0" prefWidth="178.0" text="Confirm Password" textFill="#5091e6">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="password" layoutX="38.0" layoutY="362.0" prefHeight="26.0" prefWidth="266.0" />
+            <PasswordField fx:id="confirmPassword" layoutX="38.0" layoutY="435.0" prefHeight="26.0" prefWidth="266.0" />
+            <Label layoutX="39.0" layoutY="184.0" prefHeight="30.0" prefWidth="178.0" text="Date of Birth" textFill="#5091e6">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="birthdate" layoutX="38.0" layoutY="214.0" prefHeight="26.0" prefWidth="266.0" />
+            <Button fx:id="signup" layoutX="511.0" layoutY="422.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="152.0" style="-fx-font-weight: bold; -fx-background-color: #5091e6;" text="Sign Up" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancel" layoutX="340.0" layoutY="423.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="152.0" style="-fx-font-weight: bold; -fx-background-color: #5091e6;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
