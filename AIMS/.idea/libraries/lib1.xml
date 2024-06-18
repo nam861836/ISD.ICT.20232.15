@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.graphics.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.web.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.fxml.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.media.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.base.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.controls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.swing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx-swt.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/win/javafx-sdk-15" />
+      <root url="file://$PROJECT_DIR$/src" />
+      <root url="jar://$PROJECT_DIR$/lib/win/javafx-sdk-15/lib/javafx.graphics.jar!/" />
+    </SOURCES>
+  </library>
+</component>
