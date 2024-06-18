@@ -42,9 +42,14 @@ public class Configs {
 
     public static final int PLACE_RUSH_ORDER = 1;
     public static final int PALCE_ORDER = 2;
+    public static final int ERR_DELIVERY_INFO_SUPPORT = -44;
+    public static final int ERR_PRODUCT_SUPPORT = -444;
+
     public static String CURRENCY = "VND";
     public static float PERCENT_VAT = 10;
     public static Font REGULAR_FONT = Font.font("Segoe UI", FontWeight.NORMAL, FontPosture.REGULAR, 24);
+    public static String[] PROVINCES_SUPPORT = {"Hà Nội"};
+    
     public static String[] PROVINCES = {"Bắc Giang", "Bắc Kạn", "Cao Bằng", "Hà Giang", "Lạng Sơn", "Phú Thọ",
             "Quảng Ninh", "Thái Nguyên", "Tuyên Quang", "Yên Bái", "Điện Biên", "Hòa Bình", "Lai Châu", "Sơn La",
             "Bắc Ninh", "Hà Nam", "Hải Dương", "Hưng Yên", "Nam Định", "Ninh Bình", "Thái Bình", "Vĩnh Phúc", "Hà Nội",
