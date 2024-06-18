@@ -23,6 +23,9 @@ public class Account {
     private String phone;
     private int role;
 
+    public Account(){
+    }
+
     public Account(String name, String username, String password,String birthDate, String phone) {
         this.name = name;
         this.username = username;
@@ -55,6 +58,9 @@ public class Account {
         return this.name;
     }
 
+    public int getId() { return this.id; }
+
+    public void setId(int id) { this.id = id; }
 
     /**
      * @param name
@@ -97,6 +103,8 @@ public class Account {
     public Account login() throws SQLException {
         if (validateLoginInformation()) {
             Account tmp = getAccountByUsername(username);
+//            tmp.setId(tmp.getId());
+//            System.out.println(tmp.id);
             if (tmp.password.compareTo(this.password) == 0) {
                 System.out.println(tmp.getName());
                 return tmp;
