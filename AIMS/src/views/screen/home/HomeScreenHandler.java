@@ -63,11 +63,18 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private HBox hboxProduct;
 
+    //private HBox hboxProduct;
+
     @FXML
     private SplitMenuButton splitMenuBtnSearch;
 
     @FXML
     private HBox pageNumberHbox;
+
+    @FXML
+    private TextField searchText;
+
+    private List homeItems;
 
     // Aggregation of product list
     private List homeProducts;
@@ -137,6 +144,21 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
         aimsImage.setOnMouseClicked(e -> {
             addProductsHomePage(getProductPaged(currentPage));
+        });
+
+        this.splitMenuBtnSearch.setOnMouseClicked(e ->{
+            try {
+                List medium = this.getBaseController().search(this.searchText.getText());
+                this.homeItems = new ArrayList<>();
+                for (Object object : medium) {
+                    Product media = (Product)object;
+                    ProductFrameHandler m1 = new ProductFrameHandler(Configs.HOME_MEDIA_PATH, media, this);
+                    this.homeItems.add(m1);
+                }
+            } catch (SQLException | IOException e1) {
+                e1.printStackTrace();
+            }
+            this.addMediaHome(homeItems);
         });
 
         cartImage.setOnMouseClicked(e -> {
@@ -214,6 +236,26 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         int lastIndex = Math.min(startIndex + numberOfProductPerPage, homeProducts.size());
         List productPaged = new ArrayList<>(homeProducts.subList(startIndex, lastIndex));
         return productPaged;
+    }
+
+    public void addMediaHome(List items){
+        ArrayList mediaItems = (ArrayList)((ArrayList) items).clone();
+        hboxProduct.getChildren().forEach(node -> {
+            VBox vBox = (VBox) node;
+            vBox.getChildren().clear();
+        });
+        while(!mediaItems.isEmpty()){
+            hboxProduct.getChildren().forEach(node -> {
+                int vid = hboxProduct.getChildren().indexOf(node);
+                VBox vBox = (VBox) node;
+                while(vBox.getChildren().size()<3 && !mediaItems.isEmpty()){
+                    ProductFrameHandler media = (ProductFrameHandler) mediaItems.get(0);
+                    vBox.getChildren().add(media.getContent());
+                    mediaItems.remove(media);
+                }
+            });
+            return;
+        }
     }
 
     /**

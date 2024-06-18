@@ -27,4 +27,8 @@ public class HomeController extends BaseController {
     public void deleteProduct(Product product) throws SQLException {
         product.removeProduct();
     }
+
+    public List<Product> search(String searchText) throws SQLException{
+        return new Product().searchProduct(searchText);
+    }
 }
