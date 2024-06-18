@@ -1,8 +1,10 @@
 package entity.order;
 
+import controller.AccountController;
 import entity.db.AIMSDB;
 import entity.payment.PaymentTransaction;
 import entity.shipping.Shipment;
+import entity.user.Account;
 import utils.Configs;
 import utils.enums.OrderStatus;
 
@@ -22,12 +24,14 @@ public class Order {
     private int shippingFees;
     private List<OrderItem> listOrderItem;
     private Shipment shipment;
+    private AccountController loggedAcc;
+    //private Account acc;
     private String name;
     private String province;
     private String instruction;
     private OrderStatus status;
     private PaymentTransaction paymentTransaction;
-
+    private int userID;
 
 
     public PaymentTransaction getPaymentTransaction() {
@@ -106,15 +110,21 @@ public class Order {
 
     public List<Order> getListOrders(){
         List<Order> orders = new ArrayList<>();
+        loggedAcc = AccountController.getAccountController();
+        userID = loggedAcc.getLoggedInAccount().getId();
 
         try {
-            var query = "SELECT o.id, o.name, o.province, o.address, o.phone, o.shippingFees,  o.status, " +
+            var query = "SELECT o.id, o.name, o.province, o.address, o.phone, o.shippingFees, o.status, " +
                     "s.shipType, s.deliveryInstruction, s.deliveryTime, s.shipmentDetail, " +
                     "p.transactionNo, p.txnRef, p.cardType, p.amount, p.createdAt, p.content " +
                     "FROM `Order` o " +
                     "LEFT JOIN Shipment s ON s.orderId = o.id " +
-                    "LEFT JOIN PaymentTransaction p ON o.id = p.orderID ORDER BY p.createdAt DESC";
+                    "LEFT JOIN PaymentTransaction p ON o.id = p.orderID " +
+                    "WHERE o.userID = ? " +  // Add the condition here
+                    "ORDER BY p.createdAt DESC";
+
             PreparedStatement preparedStatement = AIMSDB.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, userID);  // Set the userID parameter
             ResultSet resultSet = preparedStatement.executeQuery();
 
             HashMap<Integer, Order> orderMap = new HashMap<>();
@@ -179,14 +189,18 @@ public class Order {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        String query = "INSERT INTO 'Order' (name, province, address, phone, shippingFees) " +
-                "VALUES ( ?, ?, ?, ?, ?)";
+        loggedAcc = AccountController.getAccountController();
+        userID = loggedAcc.getLoggedInAccount().getId();
+
+        String query = "INSERT INTO 'Order' (name, province, address, phone, shippingFees, userID) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = AIMSDB.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, province);
             preparedStatement.setString(3, address);
             preparedStatement.setString(4, phone);
             preparedStatement.setInt(5, shippingFees);
+            preparedStatement.setInt(6, userID);
 
 
 

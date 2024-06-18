@@ -12,7 +12,9 @@ public class AccountController extends BaseController {
     public void login(String username, String password) throws SQLException {
         Account loginAccount = new Account(username, password);
         acc = loginAccount.login();
-        System.out.println( "Trong ACCCONTROLLER " +acc.getName());
+        acc.setId(acc.getId());
+//        System.out.println( "Trong ACCCONTROLLER " +acc.getName());
+//        System.out.println(acc.getId());
     }
 
     public Account getLoggedInAccount() {

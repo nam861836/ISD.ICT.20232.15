@@ -109,7 +109,12 @@ CREATE TABLE IF NOT EXISTS [Order] (
     instruction  VARCHAR (255),
     province     VARCHAR (255),
     status       INTEGER       DEFAULT (0),
-    amount       INTEGER       DEFAULT (100000) 
+    amount       INTEGER       DEFAULT (100000)
+    userID       INTEGER
+    CONSTRAINT uID FOREIGN KEY (
+            userID
+        )
+        REFERENCES User (id)
 );
 
 
@@ -132,7 +137,7 @@ CREATE TABLE IF NOT EXISTS OrderItem (
     CONSTRAINT fk_orderitem_order FOREIGN KEY (
         orderID
     )
-    REFERENCES [Order] (id) 
+    REFERENCES [Order] (id)
 );
 
 
@@ -167,6 +172,19 @@ CREATE TABLE IF NOT EXISTS Shipment (
     deliveryTime        VARCHAR (255),
     shipmentDetail      VARCHAR (255),
     orderId             INTEGER       CONSTRAINT Shipment_Order_id_fk REFERENCES [Order]
+);
+
+DROP TABLE IF EXISTS User;
+
+CREATE TABLE "User" (
+	"id"	INTEGER,
+	"username"	TEXT,
+	"password"	TEXT,
+	"name"	TEXT,
+	"birthDate"	TEXT,
+	"phoneNumber"	TEXT,
+	"role"	INTEGER,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 
