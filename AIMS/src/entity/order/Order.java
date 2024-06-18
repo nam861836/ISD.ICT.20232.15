@@ -32,8 +32,6 @@ public class Order {
     private OrderStatus status;
     private PaymentTransaction paymentTransaction;
 
-//    private int userID;
-
     public PaymentTransaction getPaymentTransaction() {
         return paymentTransaction;
     }
