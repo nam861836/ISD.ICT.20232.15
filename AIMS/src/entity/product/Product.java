@@ -142,6 +142,26 @@ public class Product implements ProductPublisher {
                 + "where id=" + id + ";");
     }
 
+    public List<Product> searchProduct(String title) throws SQLException{
+        String sql = "SELECT * FROM Product where title like '%" + title + "%';";
+        Statement stm = AIMSDB.getConnection().createStatement();
+        ResultSet res = stm.executeQuery(sql);
+        List<Product> list = new ArrayList<Product>();
+        while (res.next()) {
+
+            Product m = new Product()
+                    .setId(res.getInt("id"))
+                    .setTitle(res.getString("title"))
+                    .setQuantity(res.getInt("quantity"))
+                    .setCategory(res.getString("category"))
+                    .setProductURL(res.getString("imageUrl"))
+                    .setPrice(res.getInt("price"))
+                    .setType(res.getString("type"));
+            list.add(m);
+        }
+        return list;
+    }
+
     /**
      * @return int
      */
