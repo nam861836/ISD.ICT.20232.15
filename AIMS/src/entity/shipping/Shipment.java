@@ -1,24 +1,76 @@
 package entity.shipping;
 
 import entity.db.AIMSDB;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.List;
 
 public class Shipment {
+    private String phone;
+    private String name;
+    private String province;
+    private String address;
 
     private int shipType;
-
     private String deliveryInstruction;
     private int orderId;
+
+    private String shipmentDetail;
+    private String deliveryTime;
+    private AdditionalInfo addInfo;
+
+    public void enterAdditonal(AdditionalInfo addInfo){
+       this.addInfo = addInfo;
+       this.deliveryInstruction = addInfo.getDeliveryInstruction();
+       this.deliveryTime = addInfo.getDeliveryTime();
+    }
+
+    public AdditionalInfo getAddtionalInfo(){
+        return this.addInfo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
-    public Shipment(){}
+    public Shipment() {
+    }
+
     public int getShipType() {
         return shipType;
     }
@@ -47,11 +99,8 @@ public class Shipment {
         this.deliveryTime = deliveryTime;
     }
 
-    private String shipmentDetail;
-
-    private String deliveryTime;
-
-    public Shipment(int shipType, String deliveryInstruction, String shipmentDetail, String deliveryTime, int orderId) {
+    public Shipment(int shipType, String deliveryInstruction, String shipmentDetail, String deliveryTime,
+            int orderId) {
         super();
         this.shipType = shipType;
         this.orderId = orderId;
@@ -64,10 +113,10 @@ public class Shipment {
 
     public Shipment(int shipType) {
         super();
-        this.shipType =  shipType;
+        this.shipType = shipType;
     }
 
-    public void save(){
+    public void save() {
         try {
             Statement stm = AIMSDB.getConnection().createStatement();
         } catch (SQLException e) {
@@ -91,9 +140,14 @@ public class Shipment {
     /**
      * @return String
      */
-    //getter setter method
+    // getter setter method
     public String getDeliveryInstruction() {
         return this.deliveryInstruction;
     }
 
+    public boolean checkDeliveryInfo() {
+        String province = new String(this.getProvince());
+        List<String> supportedProvinces = Arrays.asList(utils.Configs.PROVINCES_SUPPORT);
+        return supportedProvinces.contains(province);
+    }
 }
