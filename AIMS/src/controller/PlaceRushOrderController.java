@@ -1,8 +1,16 @@
 package controller;
 
+import entity.order.Order;
+import entity.order.OrderItem;
+import entity.product.Product;
+import entity.shipping.AdditionalInfo;
 import entity.shipping.Shipment;
+import javassist.bytecode.analysis.Util;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 /**
@@ -17,7 +25,6 @@ public class PlaceRushOrderController extends BaseController {
     private static Logger LOGGER = utils.Utils.getLogger(PlaceRushOrderController.class.getName());
 
 
-
     /**
      * @param deliveryData
      * @param typeDelivery
@@ -29,4 +36,16 @@ public class PlaceRushOrderController extends BaseController {
            // validate
         }
     }
+
+    public static int askToPlaceRushOrder(Shipment deliveryInfo, Order order){
+        if (deliveryInfo.checkDeliveryInfo() ) {
+            if(order.checkProductAvailable()){
+                List<OrderItem> l = order.getListOrderAvaiableItems();
+                return l.size();
+            }
+            else return utils.Configs.ERR_PRODUCT_SUPPORT;
+        } 
+        return utils.Configs.ERR_DELIVERY_INFO_SUPPORT;
+    }
+
 }

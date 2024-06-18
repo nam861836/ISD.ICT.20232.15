@@ -3,6 +3,7 @@ package entity.order;
 import controller.AccountController;
 import entity.db.AIMSDB;
 import entity.payment.PaymentTransaction;
+import entity.product.Product;
 import entity.shipping.Shipment;
 import entity.user.Account;
 import utils.Configs;
@@ -13,11 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class Order {
-
 
     private String phone;
     private int id;
@@ -36,13 +37,14 @@ public class Order {
         return paymentTransaction;
     }
 
-    public OrderStatus getStatus(){
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus stt){
+    public void setStatus(OrderStatus stt) {
         status = stt;
     }
+
     public String getInstruction() {
         return instruction;
     }
@@ -97,7 +99,6 @@ public class Order {
         this.id = id;
     }
 
-
     public Order() {
         this.listOrderItem = new ArrayList<OrderItem>();
     }
@@ -106,7 +107,7 @@ public class Order {
         this.listOrderItem = listOrderProduct;
     }
 
-    public List<Order> getListOrders(){
+    public List<Order> getListOrders() {
         List<Order> orders = new ArrayList<>();
         loggedAcc = AccountController.getAccountController();
         userID = loggedAcc.getLoggedInAccount().getId();
@@ -141,7 +142,6 @@ public class Order {
                     order.setShippingFees(resultSet.getInt("shippingFees"));
                     order.setStatus(OrderStatus.values()[resultSet.getInt("status")]);
 
-
                     var shipment = new Shipment();
                     shipment.setShipType(resultSet.getInt("shipType"));
                     shipment.setDeliveryInstruction(resultSet.getString("deliveryInstruction"));
@@ -158,16 +158,13 @@ public class Order {
                     paymentTransaction.setCreatedAt(resultSet.getDate(("createdAt")));
                     paymentTransaction.setTransactionContent(resultSet.getString(("content")));
 
-
-
                     order.paymentTransaction = paymentTransaction;
 
                     orderMap.put(orderId, order);
                     orders.add(order);
                 }
 
-
-                OrderItem orderItem = new OrderItem();  // Replace with actual logic
+                OrderItem orderItem = new OrderItem(); // Replace with actual logic
                 order.addOrderItem(orderItem);
             }
 
@@ -181,7 +178,7 @@ public class Order {
         return orders;
     }
 
-    public void createOrderEntity(){
+    public void createOrderEntity() {
         try {
             Statement stm = AIMSDB.getConnection().createStatement();
         } catch (SQLException e) {
@@ -199,8 +196,6 @@ public class Order {
             preparedStatement.setString(4, phone);
             preparedStatement.setInt(5, shippingFees);
             preparedStatement.setInt(6, userID);
-
-
 
             int affectedRows = preparedStatement.executeUpdate();
 
@@ -248,7 +243,6 @@ public class Order {
         }
     }
 
-
     /**
      * @param om
      */
@@ -256,14 +250,12 @@ public class Order {
         this.listOrderItem.add(om);
     }
 
-
     /**
      * @param orderItem
      */
     public void removeOrderItem(OrderItem orderItem) {
         this.listOrderItem.remove(orderItem);
     }
-
 
     /**
      * @return int
@@ -300,5 +292,49 @@ public class Order {
     }
 
     public void setPaymentTransaction(PaymentTransaction paymentTransaction) {
+    }
+
+    public boolean checkProductAvailable() {
+        for (Object object : listOrderItem) {
+            OrderItem om = (OrderItem) object;
+            Product pr = om.getProduct();
+            if (pr.getIsSupportedPlaceRushOrder())
+                return true;
+        }
+        return false;
+    }
+
+    public List<OrderItem> getListOrderAvaiableItems() {
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (Object object : listOrderItem) {
+            OrderItem om = (OrderItem) object;
+            Product pr = om.getProduct();
+            if (pr.getIsSupportedPlaceRushOrder())
+                orderItems.add(om);
+        }
+        return orderItems;
+    }
+
+    public int getNumberRushItems() {
+        int num = 0;
+        for (Object object : listOrderItem) {
+            OrderItem om = (OrderItem) object;
+            Product pr = om.getProduct();
+            if (pr.getIsSupportedPlaceRushOrder())
+                {
+                    num += om.getQuantity();
+                }
+        }
+        return num;
+    }
+    
+    public int getShippingFeesRush() {
+        return getNumberRushItems()*10;
+    }
+
+    public boolean checkDeliveryInfo() {
+        String province = new String(this.getProvince());
+        List<String> supportedProvinces = Arrays.asList(utils.Configs.PROVINCES_SUPPORT);
+        return supportedProvinces.contains(province);
     }
 }
