@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -315,5 +316,11 @@ public class Order {
     
     public int getShippingFeesRush() {
         return getNumberRushItems()*10;
+    }
+
+    public boolean checkDeliveryInfo() {
+        String province = new String(this.getProvince());
+        List<String> supportedProvinces = Arrays.asList(utils.Configs.PROVINCES_SUPPORT);
+        return supportedProvinces.contains(province);
     }
 }

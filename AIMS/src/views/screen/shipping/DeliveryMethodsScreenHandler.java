@@ -93,6 +93,7 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
         String deliveryInstructionString = new String(deliveryInstruction.getText());
         String shipmentDetailString = new String(shipmentDetail.getText());
         String deliveryDateString = new String();
+        
         if (deliveryTime.getValue() != null) {
             deliveryDateString = new String(deliveryTime.getValue().toString());
         }
@@ -103,10 +104,10 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
             typeDelivery = utils.Configs.PALCE_ORDER;
         }
         var shipment = new Shipment(typeDelivery);
+        shipment.setProvince(order.getProvince());
 
         if( typeDelivery == utils.Configs.PLACE_RUSH_ORDER ){
-            int sizeItems = PlaceRushOrderController.askToPlaceRushOrder(shipment, this.order);
-            handleRushOrderError(sizeItems);
+            PlaceRushOrderController.askToPlaceRushOrder(shipment, this.order);
             AdditionalInfo addData = new AdditionalInfo();
             addData.enterAddtionalData(deliveryDateString, deliveryInstructionString);
             shipment.enterAdditonal(addData);
@@ -147,7 +148,7 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
      * @param event
      */
     @FXML
-    private void handleDeliveryType(ActionEvent event, int error) {
+    private void handleDeliveryType(ActionEvent event) {
         if (placeOrderValue.isSelected()) {
             deliveryInstruction.setDisable(true);
             shipmentDetail.setDisable(true);
@@ -157,8 +158,8 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
             shipmentDetail.setDisable(false);
             deliveryTime.setDisable(false);
         }
-        //handleProvinceError(event);
-        handleRushOrderError(error);
+        handleProvinceError(event);
+        //handleRushOrderError(error);
     }
 
 
@@ -168,14 +169,28 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
     @FXML
     private void handleProvinceError(ActionEvent event) {
         String province = new String(order.getProvince());
-  
+        
         errorProvince.setVisible(false);
         deliveryInstruction.setDisable(true);
         shipmentDetail.setDisable(true);
         deliveryTime.setDisable(true);
         updateDeliveryMethodInfoButton.setDisable(false);
 
-        if (!province.equals("Hà Nội")) {
+        int typeDelivery;
+        if (placeRushOrderValue.isSelected()) {
+            typeDelivery = utils.Configs.PLACE_RUSH_ORDER;
+        } else {
+            typeDelivery = utils.Configs.PALCE_ORDER;
+        }
+        var shipment = new Shipment(typeDelivery);
+        shipment.setProvince(province);
+        
+        int sizeItems = 0;
+        if( typeDelivery == utils.Configs.PLACE_RUSH_ORDER )
+            sizeItems = PlaceRushOrderController.askToPlaceRushOrder(shipment, this.order);
+
+        // if (!province.equals("Hà Nội")) {
+        if ( sizeItems < 0 ){ 
             if (placeRushOrderValue.isSelected()) {
                 errorProvince.setVisible(true);
                 deliveryInstruction.setDisable(true);
@@ -217,7 +232,7 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
         deliveryTime.setDisable(true);
         updateDeliveryMethodInfoButton.setDisable(false);
 
-        if (error == -44 || error == -444) {
+        if (error == utils.Configs.ERR_DELIVERY_INFO_SUPPORT || error == utils.Configs.ERR_PRODUCT_SUPPORT) {
             if (placeRushOrderValue.isSelected()) {
                 errorProvince.setVisible(true);
                 deliveryInstruction.setDisable(true);

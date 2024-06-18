@@ -48,12 +48,4 @@ public class PlaceRushOrderController extends BaseController {
         return utils.Configs.ERR_DELIVERY_INFO_SUPPORT;
     }
 
-    public int calculateShippingFee(Order order) {
-        int num = order.getNumberRushItems();
-        return num*10;
-    }
-
-    public void enterAdditonalInfo(AdditionalInfo additionalInfo){
-
-    }
 }
