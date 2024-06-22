@@ -11,10 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Map;
 
-/**
- * SOLID: Khó mở rộng khi cần thêm phương thức thanh toán ko cần lấy URL
- * @author ntvu
- */
+
 public interface VnPayInterface {
 
 

@@ -16,12 +16,12 @@ import java.util.logging.Logger;
 /**
  * The general media class, for another media it can be done by inheriting this class
  *
- * @author nguyenlm
+ *
  */
 public class Product implements ProductPublisher {
     // For observer pattern
     protected List<ProductObserver> productObservers = new ArrayList<ProductObserver>();
-    protected static boolean isSupportedPlaceRushOrder = new Random().nextBoolean();
+    protected boolean isSupportedPlaceRushOrder = new Random().nextBoolean();
     private static Logger LOGGER = Utils.getLogger(Product.class.getName());
     protected Statement stm;
     protected int id;
@@ -51,8 +51,8 @@ public class Product implements ProductPublisher {
     /**
      * @return boolean
      */
-    public static boolean getIsSupportedPlaceRushOrder() {
-        return Product.isSupportedPlaceRushOrder;
+    public boolean getIsSupportedPlaceRushOrder() {
+        return this.isSupportedPlaceRushOrder;
     }
 
     /**

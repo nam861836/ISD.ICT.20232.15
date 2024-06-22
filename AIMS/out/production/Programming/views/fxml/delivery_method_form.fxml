@@ -101,7 +101,7 @@
                                 <DatePicker fx:id="deliveryTime" layoutX="330.0" layoutY="34.0" />
                             </children>
                         </AnchorPane>
-                        <Label fx:id="errorProvince" layoutX="70.0" layoutY="308.0" text="Your localtion isnot in Ha Noi, please chosse Ha Noi to use Place Rush Order function" textFill="#d10808">
+                        <Label fx:id="errorProvince" layoutX="70.0" layoutY="308.0" text="Please chosse Ha Noi, or other products to use Place Rush Order function" textFill="#d10808">
                             <font>
                                 <Font size="18.0" />
                             </font>

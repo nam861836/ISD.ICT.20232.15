@@ -46,6 +46,8 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
     @FXML
     private Label shippingFees;
 
+    @FXML 
+    private Label shippingFeesRush;
     @FXML
     private Label total;
 
@@ -62,6 +64,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
         setInvoiceInfo();
     }
 
+    
     //Control Coupling
     //Functional Cohesion
     private void setInvoiceInfo() {
@@ -72,7 +75,15 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
         address.setText(invoice.getOrder().getAddress());
         subtotal.setText(Utils.getCurrencyFormat(invoice.getOrder().getAmount()));
         shippingFees.setText(Utils.getCurrencyFormat(invoice.getOrder().getShippingFees()));
-        int amount = invoice.getOrder().getAmount() + invoice.getOrder().getShippingFees();
+        
+        int shippingFeesRushAmount = 0; 
+        int shipType = invoice.getShipType();
+        if( shipType == utils.Configs.PLACE_RUSH_ORDER ) 
+            shippingFeesRushAmount = invoice.getOrder().getShippingFeesRush();
+        shippingFeesRush.setText(Utils.getCurrencyFormat(shippingFeesRushAmount));
+
+        int amount = invoice.getOrder().getAmount() + invoice.getOrder().getShippingFees() + shippingFeesRushAmount;
+
         total.setText(Utils.getCurrencyFormat(amount));
         invoice.setAmount(amount);
         invoice.getOrder().getListOrderItem().forEach(orderItem -> {

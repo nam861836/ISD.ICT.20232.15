@@ -174,16 +174,16 @@ public class PlaceOrderController extends BaseController {
 
     //Functional Cohesion
     //Control Coupling
-    public Product getProductAvailablePlaceRush(Order order) throws SQLException {
-        Product product = new Product();
-        for (OrderItem pd : order.getListOrderItem()) {
-            // CartItem cartItem = (CartItem) object;
-            if( validateProductPlaceRushorder()){
-                product = pd.getProduct();
-            }
-        }
-        return product;
-    }
+    // public Product getProductAvailablePlaceRush(Order order) throws SQLException {
+    //     Product product = new Product();
+    //     for (OrderItem pd : order.getListOrderItem()) {
+    //         // CartItem cartItem = (CartItem) object;
+    //         if( validateProductPlaceRushorder()){
+    //             product = pd.getProduct();
+    //         }
+    //     }
+    //     return product;
+    // }
 
 
     /**
@@ -209,9 +209,9 @@ public class PlaceOrderController extends BaseController {
 
     //Functional Cohesion
     //Control Coupling
-    public boolean validateProductPlaceRushorder() {
-        if (Product.getIsSupportedPlaceRushOrder())
-            return true;
-        return false;
-    }
+    // public boolean validateProductPlaceRushorder() {
+    //     if (Product.getIsSupportedPlaceRushOrder())
+    //         return true;
+    //     return false;
+    // }
 }
