@@ -180,6 +180,5 @@
                 <Font name="Segoe UI Bold" size="24.0" />
             </font>
         </Button>
-      <Label text="Label" />
     </children>
 </AnchorPane>
