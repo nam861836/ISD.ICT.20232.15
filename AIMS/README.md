@@ -1,8 +1,5 @@
-# An Internet Media Store
+# AIMS
 
-<p align="center">
-  <img src="assets/images/aims_cover_image.png" />
-</p>
 
 ## Getting Started
 
@@ -57,9 +54,3 @@ add these VM arguments:
 
 > `--module-path lib/win/javafx-sdk-15/lib --add-modules=javafx.controls,javafx.fxml,javafx.base,javafx.web`
 
-## Author
-
-- nguyenlm - Software Engeneering Student - k61
-- manhvd - Software Engeneering Student - k61
-- hieudm - ICT - k61
-- vunt - IT1 - K65
