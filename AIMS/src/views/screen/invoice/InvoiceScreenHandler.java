@@ -64,6 +64,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
         setInvoiceInfo();
     }
 
+    
     //Control Coupling
     //Functional Cohesion
     private void setInvoiceInfo() {
@@ -74,8 +75,14 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
         address.setText(invoice.getOrder().getAddress());
         subtotal.setText(Utils.getCurrencyFormat(invoice.getOrder().getAmount()));
         shippingFees.setText(Utils.getCurrencyFormat(invoice.getOrder().getShippingFees()));
-        shippingFeesRush.setText(Utils.getCurrencyFormat(invoice.getOrder().getShippingFeesRush()));
-        int amount = invoice.getOrder().getAmount() + invoice.getOrder().getShippingFees() + invoice.getOrder().getShippingFeesRush();
+        
+        int shippingFeesRushAmount = 0; 
+        int shipType = invoice.getShipType();
+        if( shipType == utils.Configs.PLACE_RUSH_ORDER ) 
+            shippingFeesRushAmount = invoice.getOrder().getShippingFeesRush();
+        shippingFeesRush.setText(Utils.getCurrencyFormat(shippingFeesRushAmount));
+
+        int amount = invoice.getOrder().getAmount() + invoice.getOrder().getShippingFees() + shippingFeesRushAmount;
 
         total.setText(Utils.getCurrencyFormat(amount));
         invoice.setAmount(amount);

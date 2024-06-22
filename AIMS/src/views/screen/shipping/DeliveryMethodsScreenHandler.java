@@ -104,15 +104,12 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
             typeDelivery = utils.Configs.PALCE_ORDER;
         }
         var shipment = new Shipment(typeDelivery);
-        shipment.setProvince(order.getProvince());
-
+    
         if( typeDelivery == utils.Configs.PLACE_RUSH_ORDER ){
             PlaceRushOrderController.askToPlaceRushOrder(shipment, this.order);
-            AdditionalInfo addData = new AdditionalInfo();
-            addData.enterAddtionalData(deliveryDateString, deliveryInstructionString);
-            shipment.enterAdditonal(addData);
+            PlaceRushOrderController.enterAdditionalData(shipment, deliveryInstructionString, deliveryDateString, shipmentDetailString );
         }
-        shipment.setShipmentDetail(shipmentDetailString);
+       
         order.setShipment(shipment);
         
         // // create invoice screen
@@ -158,8 +155,7 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
             shipmentDetail.setDisable(false);
             deliveryTime.setDisable(false);
         }
-        handleProvinceError(event);
-        //handleRushOrderError(error);
+        handleRushOrderError(event);
     }
 
 
@@ -167,7 +163,7 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
      * @param event
      */
     @FXML
-    private void handleProvinceError(ActionEvent event) {
+    private void handleRushOrderError(ActionEvent event) {
         String province = new String(order.getProvince());
         
         errorProvince.setVisible(false);
@@ -191,48 +187,6 @@ public class DeliveryMethodsScreenHandler extends BaseScreenHandler {
 
         // if (!province.equals("Hà Nội")) {
         if ( sizeItems < 0 ){ 
-            if (placeRushOrderValue.isSelected()) {
-                errorProvince.setVisible(true);
-                deliveryInstruction.setDisable(true);
-                shipmentDetail.setDisable(true);
-                deliveryTime.setDisable(true);
-                updateDeliveryMethodInfoButton.setDisable(true);
-            } else {
-                updateDeliveryMethodInfoButton.setDisable(false);
-                deliveryInstruction.setDisable(true);
-                shipmentDetail.setDisable(true);
-                deliveryTime.setDisable(true);
-            }
-        } else {
-            if (placeRushOrderValue.isSelected()) {
-                errorProvince.setVisible(false);
-                deliveryInstruction.setDisable(false);
-                shipmentDetail.setDisable(false);
-                deliveryTime.setDisable(false);
-                updateDeliveryMethodInfoButton.setDisable(false);
-            } else {
-                updateDeliveryMethodInfoButton.setDisable(false);
-                deliveryInstruction.setDisable(true);
-                shipmentDetail.setDisable(true);
-                deliveryTime.setDisable(true);
-                errorProvince.setVisible(false);
-            }
-        }
-    }
-
-    /**
-     * @param event
-     */
-    @FXML
-    private void handleRushOrderError(int error) {
-        
-        errorProvince.setVisible(false);
-        deliveryInstruction.setDisable(true);
-        shipmentDetail.setDisable(true);
-        deliveryTime.setDisable(true);
-        updateDeliveryMethodInfoButton.setDisable(false);
-
-        if (error == utils.Configs.ERR_DELIVERY_INFO_SUPPORT || error == utils.Configs.ERR_PRODUCT_SUPPORT) {
             if (placeRushOrderValue.isSelected()) {
                 errorProvince.setVisible(true);
                 deliveryInstruction.setDisable(true);

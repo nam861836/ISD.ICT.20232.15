@@ -1,6 +1,7 @@
 package entity.invoice;
 
 import entity.order.Order;
+import entity.shipping.Shipment;
 
 public class Invoice {
 
@@ -38,5 +39,11 @@ public class Invoice {
 
     public void saveInvoice() {
 
+    }
+
+    public int getShipType(){
+        Shipment shipment = this.order.getShipment();
+        int shipType = shipment.getShipType();
+        return shipType;
     }
 }
