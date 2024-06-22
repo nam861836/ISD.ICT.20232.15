@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 /**
  * The general media class, for another media it can be done by inheriting this class
  *
- * @author nguyenlm
+ *
  */
 public class Product implements ProductPublisher {
     // For observer pattern

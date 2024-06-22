@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 /**
  * This class controls the flow of place rush order usecase in our AIMS project
  *
- * @author giangleee
+ *
  */
 public class PlaceRushOrderController extends BaseController {
     /**
