@@ -38,6 +38,8 @@ public class PlaceRushOrderController extends BaseController {
     }
 
     public static int askToPlaceRushOrder(Shipment deliveryInfo, Order order){
+        deliveryInfo.setProvince(order.getProvince());
+
         if (deliveryInfo.checkDeliveryInfo() ) {
             if(order.checkProductAvailable()){
                 List<OrderItem> l = order.getListOrderAvaiableItems();
@@ -46,6 +48,12 @@ public class PlaceRushOrderController extends BaseController {
             else return utils.Configs.ERR_PRODUCT_SUPPORT;
         } 
         return utils.Configs.ERR_DELIVERY_INFO_SUPPORT;
+    }
+
+    public static void enterAdditionalData(Shipment shipment, String deliveryInstruction, String deliveryTime, String shipmentDetailString){
+        AdditionalInfo addInfo = new AdditionalInfo(deliveryTime, deliveryInstruction);
+        shipment.enterAdditonal(addInfo);
+        shipment.setShipmentDetail(shipmentDetailString);
     }
 
 }
